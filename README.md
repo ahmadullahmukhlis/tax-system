@@ -1,56 +1,41 @@
-#Income Tax Law Guide
-Introduction
-The Income Tax Law 2009 has introduced changes to the wage withholding tax. This guide explains those changes to help you comply with the law.
+# Income Tax Law 2009 Guide
 
-Who Must Withhold Tax?
-Legal and natural persons with two or more employees during any month of the tax year must withhold tax if employee income exceeds the threshold. Legal persons include partnerships, corporations, limited liability companies, organizations, agencies, ministries, government departments, state enterprises, municipalities, and charitable institutions.
+This guide explains the changes introduced by the Income Tax Law 2009 regarding the application of wage withholding tax and helps you comply with the law.
 
-Payments Subject to Withholding
-Withholding applies to salaries and wages, including regular pay, overtime pay, cash allowances (e.g., food and transportation), and non-cash payments for services. Detailed information is available in Public Ruling 1384/6 on the Ministry of Finance and Afghanistan Revenue Department websites.
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Who Must Withhold?](#who-must-withhold)
+3. [What Payments are Subject to Withholding?](#what-payments-are-subject-to-withholding)
+4. [Who is Subject to Withholding?](#who-is-subject-to-withholding)
+5. [Employee vs. Independent Contractor](#employee-vs-independent-contractor)
+6. [Resident vs. Non-Resident](#resident-vs-non-resident)
+7. [Withholding Rates](#withholding-rates)
+8. [Calculation of Wage Withholding Tax](#calculation-of-wage-withholding-tax)
+9. [Reporting and Payment](#reporting-and-payment)
+10. [Employee's Responsibility](#employees-responsibility)
+11. [Enforcement Provisions](#enforcement-provisions)
+12. [Additional Resources](#additional-resources)
 
-Resident vs. Non-Resident Employees
-Resident employees: Subject to withholding if income exceeds AFN 5000 per month or equivalent.
-Non-resident employees: Subject to withholding unless exempted by their home country's reciprocal arrangements.
-Employee vs. Independent Contractor
-Employees: Liable to wage withholding tax.
-Independent contractors: Not liable for wage withholding but must pay annual income tax.
-The status is determined by the nature of service provision, not just the contract terms.
+## Introduction
+The Income Tax Law 2009 has modified some applications of the wage withholding tax. This guide outlines those changes and provides assistance in complying with the law.
 
-Tax Rates and Withholding
-Monthly Payrolls
-Income up to AFN 5000: 0%
-Income over AFN 5000 up to 12,500: 2%
-Income over AFN 12,500 up to 100,000: 150 + 10% of the amount over 12,500
-Income over AFN 100,000: 8,900 + 20% of the amount over 100,000
-Semi-Monthly Payrolls
-Income up to AFN 2500: 0%
-Income over AFN 2500 up to 6,250: 2%
-Income over AFN 6,250 up to 50,000: 75 + 10% of the amount over 6,250
-Income over AFN 50,000: 4,450 + 20% of the amount over 50,000
-Bi-Weekly Payrolls
-Income up to AFN 2308: 0%
-Income over AFN 2308 up to 5,769: 2%
-Income over AFN 5,769 up to 46,154: 69 + 10% of the amount over 5,769
-Income over AFN 46,154: 4,108 + 20% of the amount over 46,154
-Weekly Payrolls
-Income up to AFN 1154: 0%
-Income over AFN 1154 up to 2,885: 2%
-Income over AFN 2,885 up to 23,077: 35 + 10% of the amount over 2,885
-Income over AFN 23,077: 2,054 + 20% of the amount over 23,077
-Daily Payrolls
-Income up to AFN 164: 0%
-Income over AFN 164 up to 411: 2%
-Income over AFN 411 up to 3,288: 5 + 10% of the amount over 411
-Income over AFN 3,288: 293 + 20% of the amount over 3,288
-Calculating Wage Withholding Tax
-Using the appropriate payroll schedule, calculate the total salary including taxable benefits and apply the corresponding rate.
+## Who Must Withhold?
+Legal and natural persons with two or more employees during any month of the tax year must withhold tax from employees whose income exceeds the threshold discussed in Article 58 of the Income Tax Law. Legal entities include partnerships, corporations, limited liability companies, government agencies, and charitable institutions.
 
-Payment and Reporting
-Payment Deadline: Tax withheld must be remitted within 10 days after the end of the month.
-Annual Salary and Tax Statement: Employers must provide and submit an annual summary of salaries and taxes withheld.
-Wage Withholding Report and Deposit Form: Must be filed and paid within 10 days of the end of the month.
-Employee Responsibility
-Employees with a single job have no further filing requirements. Those with additional income must file an individual income tax return and can credit withheld tax against their total tax liability.
+## What Payments are Subject to Withholding?
+Payments to employees in the form of salaries and wages for work provided are subject to withholding. This includes regular pay, overtime pay, cash allowances (e.g., food and transportation), and non-cash payments for services. Refer to Public Ruling 1384/6 for detailed information.
 
-Enforcement Provisions
-Non-compliance may result in fines, penalties, and legal action as per Chapters 14 and 16 of the Income Tax Law.
+## Who is Subject to Withholding?
+All resident and non-resident employees in Afghanistan whose salaries exceed the tax threshold of AFN 5000 per month or equivalent. Non-resident employees are exempt if their home country provides the same exemption to Afghan residents. Refer to agreements, treaties, or protocols for foreign government and international organization employees.
+
+## Employee vs. Independent Contractor
+For tax purposes, employees are liable for wage withholding tax while independent contractors are not. Determination is based on the nature of service provision rather than the contract terms. Refer to Public Ruling 1385/5 for more information.
+
+## Resident vs. Non-Resident
+A natural person is a resident of Afghanistan if:
+1. The principal home is in Afghanistan at any time during the year.
+2. The person is present in Afghanistan for 183 days in the tax year.
+3. The person is an employee or official of the Afghan government posted abroad.
+
+Non-residents are taxed on Afghan-source income only.
+
