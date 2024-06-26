@@ -1,110 +1,351 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        tr th,td{
-            border-bottom: 1px black solid;
-        }
+      tr th,
+      td {
+        border-bottom: 1px black solid;
+      }
     </style>
-</head>
+  </head>
   <body>
-      <div class="container-fluid">
-        <div class="row">
-            <div class="h1 bg-info text-center p-5"> Afghanistan tax System </div>
+    <div class="container">
+      <div class="row">
+        <div class="h1 bg-info text-center p-5">Afghanistan tax System</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <table class="table">
+            <tr class="">
+              <th>Grass Salaray</th>
+              <td id="grass"></td>
+            </tr>
+            <tr class="">
+              <th>Nate Salary</th>
+              <td id="nate" class="position-relative"></td>
+            </tr>
+            <tr class="">
+              <th>tax</th>
+              <td id="tax" class="position-relative"></td>
+            </tr>
+          </table>
         </div>
-        <div class="row">
-            <div class="col-md-4">
-                
-                   <table class="table ">
-                    <tr class="" > 
-                        <th>Grass Salaray</th>
-                        <td id="grass"></td>
-                    </tr>
-                    <tr class="">
-                        <th>Nate Salary</th>
-                        <td id="nate" class="position-relative"></td>
-                    </tr>
-                    <tr class="">
-                        <th>tax</th>
-                        <td id="tax" class="position-relative"> </td>
-                    </tr>
-                   </table>
-                  
-            </div>
-            <div class="col-md-4">
-                <div class="input-group mb-3">
-                    <span class="input-group-text">AFN</span>                  
-                    <input type="text" id="salary" class="form-control" placeholder="Enter Yout Grass salary" aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="button" id="calculate">Calculate Tax</button>
-                  </div>
-             
-               <div id="result"></div>
-            </div>
-            <div class="col-md-4">
-                <table class="table ">
-                    <tr>
-                        <th>Monthly Salary</th>
-                        <th>Withholding Amount</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            0 to 5,000  <sup>AFN</sup>
-                        </td>
-                        <td>
-                            0%  <sup>AFN</sup>
-                        </td>
-                    </tr>
-                   </table>
-            </div>
-        
+        <div class="col-md-4">
+          <div class="input-group mb-3">
+            <span class="input-group-text">AFN</span>
+            <input
+              type="text"
+              id="salary"
+              class="form-control"
+              placeholder="Enter Yout Grass salary"
+              aria-label="Recipient's username"
+              aria-describedby="button-addon2"
+            />
+            <button class="btn btn-info" type="button" id="calculate">
+              Calculate Tax
+            </button>
+          </div>
+
+          <div id="result"></div>
         </div>
-      </div>   
-  
-  
-  
+        <div class="col-md-4">
+          <table class="table">
+            <tr>
+              <th>Monthly Salary</th>
+              <th>Withholding Amount</th>
+            </tr>
+            <tr>
+              <td>0 to 5,000 <sup>AFN</sup></td>
+              <td>0% <sup>AFN</sup></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="co-1"></div>
+        <div class="col-10">
+          <h1 class="my-4 text-center">Income Tax Law Guide</h1>
+          <p>
+            This guide explains the changes introduced by the Income Tax Law
+            2009 regarding the application of wage withholding tax and helps you
+            comply with the law.
+          </p>
 
- <script>
-    $(document).ready(function() {
-    $('#calculate').click(function() {
-        var salary = parseFloat($('#salary').val());
+          <h2>Table of Contents</h2>
+          <ol>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#who-must-withhold">Who Must Withhold?</a></li>
+            <li>
+              <a href="#what-payments-are-subject-to-withholding"
+                >What Payments are Subject to Withholding?</a
+              >
+            </li>
+            <li>
+              <a href="#who-is-subject-to-withholding"
+                >Who is Subject to Withholding?</a
+              >
+            </li>
+            <li>
+              <a href="#employee-vs-independent-contractor"
+                >Employee vs. Independent Contractor</a
+              >
+            </li>
+            <li>
+              <a href="#resident-vs-non-resident">Resident vs. Non-Resident</a>
+            </li>
+            <li><a href="#withholding-rates">Withholding Rates</a></li>
+            <li>
+              <a href="#calculation-of-wage-withholding-tax"
+                >Calculation of Wage Withholding Tax</a
+              >
+            </li>
+            <li><a href="#reporting-and-payment">Reporting and Payment</a></li>
+            <li>
+              <a href="#employees-responsibility">Employee's Responsibility</a>
+            </li>
+            <li>
+              <a href="#enforcement-provisions">Enforcement Provisions</a>
+            </li>
+            <li><a href="#additional-resources">Additional Resources</a></li>
+          </ol>
 
-        if (isNaN(salary) || salary < 0) {
-            $('#result').html('<p class="bg-danger text-white p-4">Please enter a valid positive number for salary.</p>');
+          <h2 id="introduction">Introduction</h2>
+          <p>
+            The Income Tax Law 2009 has modified some applications of the wage
+            withholding tax. This guide outlines those changes and provides
+            assistance in complying with the law.
+          </p>
+
+          <h2 id="who-must-withhold">Who Must Withhold?</h2>
+          <p>
+            Legal and natural persons with two or more employees during any
+            month of the tax year must withhold tax from employees whose income
+            exceeds the threshold discussed in Article 58 of the Income Tax Law.
+            Legal entities include partnerships, corporations, limited liability
+            companies, government agencies, and charitable institutions.
+          </p>
+
+          <h2 id="what-payments-are-subject-to-withholding">
+            What Payments are Subject to Withholding?
+          </h2>
+          <p>
+            Payments to employees in the form of salaries and wages for work
+            provided are subject to withholding. This includes regular pay,
+            overtime pay, cash allowances (e.g., food and transportation), and
+            non-cash payments for services. Refer to Public Ruling 1384/6 for
+            detailed information.
+          </p>
+
+          <h2 id="who-is-subject-to-withholding">
+            Who is Subject to Withholding?
+          </h2>
+          <p>
+            All resident and non-resident employees in Afghanistan whose
+            salaries exceed the tax threshold of AFN 5000 per month or
+            equivalent. Non-resident employees are exempt if their home country
+            provides the same exemption to Afghan residents. Refer to
+            agreements, treaties, or protocols for foreign government and
+            international organization employees.
+          </p>
+
+          <h2 id="employee-vs-independent-contractor">
+            Employee vs. Independent Contractor
+          </h2>
+          <p>
+            For tax purposes, employees are liable for wage withholding tax
+            while independent contractors are not. Determination is based on the
+            nature of service provision rather than the contract terms. Refer to
+            Public Ruling 1385/5 for more information.
+          </p>
+
+          <h2 id="resident-vs-non-resident">Resident vs. Non-Resident</h2>
+          <p>A natural person is a resident of Afghanistan if:</p>
+          <ol>
+            <li>
+              The principal home is in Afghanistan at any time during the year.
+            </li>
+            <li>
+              The person is present in Afghanistan for 183 days in the tax year.
+            </li>
+            <li>
+              The person is an employee or official of the Afghan government
+              posted abroad.
+            </li>
+          </ol>
+          <p>Non-residents are taxed on Afghan-source income only.</p>
+
+          <h2 id="withholding-rates">Withholding Rates</h2>
+          <p>
+            Effective 1 Hamal 1388, the new tax law provides a monthly schedule
+            of withholding rates based on income brackets.
+          </p>
+
+          <h3>Monthly Payrolls</h3>
+          <ul>
+            <li>Income up to AFN 5000: 0%</li>
+            <li>Income between AFN 5000 - 12,500: 2%</li>
+            <li>
+              Income between AFN 12,500 - 100,000: 10% of the amount over AFN
+              12,500
+            </li>
+            <li>Income over AFN 100,000: 20% of the amount over AFN 100,000</li>
+          </ul>
+
+          <h3>Semi-Monthly Payrolls</h3>
+          <ul>
+            <li>Income up to AFN 2,500: 0%</li>
+            <li>Income between AFN 2,500 - 6,250: 2%</li>
+            <li>
+              Income between AFN 6,250 - 50,000: 10% of the amount over AFN
+              6,250
+            </li>
+            <li>Income over AFN 50,000: 20% of the amount over AFN 50,000</li>
+          </ul>
+
+          <h3>Bi-Weekly Payrolls</h3>
+          <ul>
+            <li>Income up to AFN 2,308: 0%</li>
+            <li>Income between AFN 2,308 - 5,769: 2%</li>
+            <li>
+              Income between AFN 5,769 - 46,154: 10% of the amount over AFN
+              5,769
+            </li>
+            <li>Income over AFN 46,154: 20% of the amount over AFN 46,154</li>
+          </ul>
+
+          <h3>Weekly Payrolls</h3>
+          <ul>
+            <li>Income up to AFN 1,154: 0%</li>
+            <li>Income between AFN 1,154 - 2,885: 2%</li>
+            <li>
+              Income between AFN 2,885 - 23,077: 10% of the amount over AFN
+              2,885
+            </li>
+            <li>Income over AFN 23,077: 20% of the amount over AFN 23,077</li>
+          </ul>
+
+          <h3>Daily Payrolls</h3>
+          <ul>
+            <li>Income up to AFN 164: 0%</li>
+            <li>Income between AFN 164 - 411: 2%</li>
+            <li>
+              Income between AFN 411 - 3,288: 10% of the amount over AFN 411
+            </li>
+            <li>Income over AFN 3,288: 20% of the amount over AFN 3,288</li>
+          </ul>
+
+          <h2 id="calculation-of-wage-withholding-tax">
+            Calculation of Wage Withholding Tax
+          </h2>
+          <p>
+            Use the provided tables to calculate the withholding tax based on
+            the payroll period and total salary, including taxable benefits.
+            Examples are provided in the document for better understanding.
+          </p>
+
+          <h3>Example 1</h3>
+          <p>
+            Abdullah earns AFN 20,000 per month. His monthly withholding rate
+            would be AFN 900 based on the following calculation from the third
+            row of the monthly payroll table:
+          </p>
+          <pre>
+            20,000 – 12,500 = 7,500
+            7,500 x 10% (0.1) = 750
+            750 + 150 = 900
+                </pre
+          >
+
+          <h2 id="reporting-and-payment">Reporting and Payment</h2>
+          <p>
+            Employers must remit the withheld tax to the State no later than 10
+            days after the end of the month. Annual salary and tax statements
+            must be provided to employees and forwarded to the Ministry of
+            Finance. Monthly wage withholding reports and deposit forms must be
+            filed with payments due at Da Afghanistan Bank.
+          </p>
+
+          <h2 id="employees-responsibility">Employee's Responsibility</h2>
+          <p>
+            Employees with a single job have no further filing requirements.
+            Those with additional income must file an individual income tax
+            return and can credit the withheld tax against their total tax
+            liability.
+          </p>
+
+          <h2 id="enforcement-provisions">Enforcement Provisions</h2>
+          <p>
+            Non-compliance may result in administrative actions by the Ministry
+            of Finance, including fines, penalties, and prosecution.
+          </p>
+
+          <h2 id="additional-resources">Additional Resources</h2>
+          <p>
+            For more detailed information, forms, guides, and instructions,
+            visit the Afghanistan Revenue Department website:
+            <a href="http://www.ard.gov.af">www.ard.gov.af</a>.
+          </p>
+        </div>
+      </div>
+      <div class="col-1"></div>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        $("#calculate").click(function () {
+          var salary = parseFloat($("#salary").val());
+
+          if (isNaN(salary) || salary < 0) {
+            $("#result").html(
+              '<p class="bg-danger text-white p-4">Please enter a valid positive number for salary.</p>'
+            );
             return;
-        }
+          }
 
-        var tax = 0;
+          var tax = 0;
 
-        if (salary <= 5000) {
+          if (salary <= 5000) {
             tax = 0;
-        } else if (salary <= 12500) {
+          } else if (salary <= 12500) {
             tax = 0.02 * (salary - 5000);
-        } else if (salary <= 100000) {
+          } else if (salary <= 100000) {
             tax = 150 + 0.1 * (salary - 12500);
-        } else {
+          } else {
             tax = 8900 + 0.2 * (salary - 100000);
-        }
+          }
 
-        tax = Math.max(0, tax); // Ensure tax is not negative
-        var currency = '<sup> AFN</sup>';
-        var Natesalary = salary - tax;
-        var formattedTax = tax.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); // Add commas for thousand separators
-        var formattedSalary = salary.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); // Add commas for thousand separators
-        var formattedNatesalary = Natesalary.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); // Add commas for thousand separators
-        var resultMessage = formattedTax ;
-        $('#grass').html(formattedSalary + currency)
-        $('#nate').html(formattedNatesalary + currency)
-        $('#tax').html(resultMessage + currency);
-
-    });
-});
-
- </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+          tax = Math.max(0, tax); // Ensure tax is not negative
+          var currency = "<sup> AFN</sup>";
+          var Natesalary = salary - tax;
+          var formattedTax = tax.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,"); // Add commas for thousand separators
+          var formattedSalary = salary
+            .toFixed(2)
+            .replace(/\d(?=(\d{3})+\.)/g, "$&,"); // Add commas for thousand separators
+          var formattedNatesalary = Natesalary.toFixed(2).replace(
+            /\d(?=(\d{3})+\.)/g,
+            "$&,"
+          ); // Add commas for thousand separators
+          var resultMessage = formattedTax;
+          $("#grass").html(formattedSalary + currency);
+          $("#nate").html(formattedNatesalary + currency);
+          $("#tax").html(resultMessage + currency);
+        });
+      });
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
