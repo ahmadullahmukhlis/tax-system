@@ -41,21 +41,57 @@
           </table>
         </div>
         <div class="col-md-4">
-          <div class="input-group mb-3">
+          <div class="btns mb-5">
+            <button id="grass_salary_btn" class="btn btn-info d-none">
+              Grass Salaray
+            </button>
+            <button id="tax_salary_btn" class="btn btn-success">Tax</button>
+            <button id="nate_salary_btn" class="btn btn-secondary">
+              Nate Salaray
+            </button>
+          </div>
+          <div class="input-group mb-3" id="grass_input">
             <span class="input-group-text">AFN</span>
             <input
               type="text"
               id="salary"
               class="form-control"
-              placeholder="Enter Yout Grass salary"
-              aria-label="Recipient's username"
+              placeholder="Find Nate Salaray and Tax"
+              aria-label="Enter Grass salary Find Nate Salaray and Tax"
               aria-describedby="button-addon2"
             />
             <button class="btn btn-info" type="button" id="calculate">
               Calculate Tax
             </button>
           </div>
-
+          <div class="input-group mb-3 d-none" id="tax_input">
+            <span class="input-group-text">AFN</span>
+            <input
+              type="text"
+              id="tax_check"
+              class="form-control"
+              placeholder="Enter Yout Grass salary"
+              aria-label="Recipient's username"
+              aria-describedby="button-addon2"
+            />
+            <button class="btn btn-success" type="button" id="calculate_tax">
+              Calculate Salaries
+            </button>
+          </div>
+          <div class="input-group mb-3 d-none" id="nate_input">
+            <span class="input-group-text">AFN</span>
+            <input
+              type="text"
+              id="nate_check"
+              class="form-control"
+              placeholder="Enter Yout Grass salary"
+              aria-label="Recipient's username"
+              aria-describedby="button-addon2"
+            />
+            <button class="btn btn-secondary" type="button" id="calculate_nate">
+              Calculate Salaries & Tax
+            </button>
+          </div>
           <div id="result"></div>
         </div>
         <div class="col-md-5">
