@@ -1,371 +1,716 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Afghanistan Tax System Calculator</title>
+    <title>Afghanistan Tax Calculator | Salary & Tax Calculation</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
+      :root {
+        --primary: #1a73e8;
+        --primary-dark: #0d47a1;
+        --success: #34a853;
+        --danger: #ea4335;
+        --warning: #fbbc04;
+        --light-bg: #f8fafc;
+        --card-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        --transition: all 0.3s ease;
+      }
+
       body {
-        background-color: #f8f9fa;
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
       }
-      .header {
-        background: linear-gradient(135deg, #1e88e5 0%, #0d47a1 100%);
+
+      .main-header {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
         color: white;
         padding: 2rem 0;
-        border-radius: 0 0 10px 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
       }
+
+      .main-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+        background-size: cover;
+      }
+
+      .logo-container {
+        background: rgba(255, 255, 255, 0.1);
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        backdrop-filter: blur(10px);
+      }
+
       .card {
-        border-radius: 10px;
         border: none;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s;
+        border-radius: 16px;
+        box-shadow: var(--card-shadow);
+        transition: var(--transition);
+        background: white;
+        overflow: hidden;
       }
+
       .card:hover {
-        transform: translateY(-5px);
+        transform: translateY(-4px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
       }
-      .btn-mode {
-        border-radius: 50px;
-        padding: 10px 25px;
+
+      .card-header {
+        background: white;
+        border-bottom: 1px solid #eef2f7;
+        padding: 1.25rem 1.5rem;
         font-weight: 600;
-        transition: all 0.3s;
+        color: #2d3748;
+        font-size: 1.1rem;
       }
-      .btn-mode.active {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+      .result-card {
+        border-top: 4px solid var(--primary);
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
       }
-      .input-group {
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      .currency-badge {
+        background: #e8f0fe;
+        color: var(--primary);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .amount-display {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #1a202c;
+        margin: 0.5rem 0;
+      }
+
+      .amount-label {
+        color: #64748b;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 600;
+      }
+
+      .mode-selector {
+        background: #f8fafc;
+        border-radius: 12px;
+        padding: 4px;
+        display: flex;
+        margin-bottom: 1.5rem;
+      }
+
+      .mode-btn {
+        flex: 1;
+        padding: 12px 16px;
+        border: none;
+        background: transparent;
         border-radius: 8px;
-      }
-      .result-box {
-        background-color: #f8f9fa;
-        border-left: 5px solid #0d6efd;
-        border-radius: 8px;
-        padding: 20px;
-      }
-      .tax-table tr:hover {
-        background-color: rgba(13, 110, 253, 0.05);
-      }
-      .tax-table th {
-        background-color: #f1f8ff;
         font-weight: 600;
+        color: #64748b;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
       }
-      .currency {
-        font-size: 0.8em;
+
+      .mode-btn:hover {
+        background: #e2e8f0;
+      }
+
+      .mode-btn.active {
+        background: white;
+        color: var(--primary);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .input-container {
+        position: relative;
+        margin-bottom: 1.5rem;
+      }
+
+      .input-container label {
+        display: block;
+        margin-bottom: 8px;
+        color: #475569;
         font-weight: 600;
-        color: #666;
+        font-size: 0.95rem;
       }
-      .highlight {
-        background-color: #fff3cd;
-        border-radius: 5px;
-        padding: 10px;
+
+      .currency-input {
+        position: relative;
+        display: flex;
+        align-items: center;
+        background: white;
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 8px 16px;
+        transition: var(--transition);
       }
-      footer {
-        background-color: #343a40;
-        color: white;
-        padding: 2rem 0;
-        margin-top: 3rem;
+
+      .currency-input:focus-within {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
       }
-      .nav-tabs .nav-link {
-        font-weight: 500;
-      }
-      .nav-tabs .nav-link.active {
+
+      .currency-input input {
+        border: none;
+        outline: none;
+        flex: 1;
+        font-size: 1.1rem;
         font-weight: 600;
-      }
-      .tax-breakdown {
-        background-color: #f8f9fa;
-        border-radius: 8px;
-        padding: 15px;
-      }
-      .calculation-step {
+        color: #1a202c;
         padding: 8px 0;
-        border-bottom: 1px dashed #dee2e6;
+        background: transparent;
       }
-      .calculation-step:last-child {
-        border-bottom: none;
+
+      .currency-input input::placeholder {
+        color: #cbd5e0;
+      }
+
+      .currency-symbol {
+        color: #64748b;
+        font-weight: 600;
+        font-size: 1rem;
+        margin-left: 8px;
+      }
+
+      .calculate-btn {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: white;
+        border: none;
+        padding: 14px 28px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1rem;
+        width: 100%;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 1rem;
+      }
+
+      .calculate-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(26, 115, 232, 0.3);
+      }
+
+      .tax-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .tax-badge.zero {
+        background: #dcfce7;
+        color: #166534;
+      }
+
+      .tax-badge.low {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+
+      .tax-badge.medium {
+        background: #fef3c7;
+        color: #92400e;
+      }
+
+      .tax-badge.high {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+
+      .progress-container {
+        margin: 1.5rem 0;
+      }
+
+      .progress-label {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+        color: #475569;
+      }
+
+      .progress-bar {
+        height: 8px;
+        background: #e2e8f0;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary) 0%, var(--success) 100%);
+        border-radius: 4px;
+        transition: width 1s ease;
+      }
+
+      .tax-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+      }
+
+      .tax-table th {
+        background: #f8fafc;
+        padding: 12px 16px;
+        text-align: left;
+        font-weight: 600;
+        color: #475569;
+        border-bottom: 2px solid #e2e8f0;
+      }
+
+      .tax-table td {
+        padding: 16px;
+        border-bottom: 1px solid #e2e8f0;
+        color: #4a5568;
+      }
+
+      .tax-table tr:hover {
+        background: #f1f5f9;
+      }
+
+      .tax-table tr.active {
+        background: #ebf8ff;
+        border-left: 4px solid var(--primary);
+      }
+
+      .example-btn {
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 8px 16px;
+        color: #475569;
+        font-size: 0.9rem;
+        transition: var(--transition);
+      }
+
+      .example-btn:hover {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+      }
+
+      .info-card {
+        background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        border: 1px solid #bae6fd;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+      }
+
+      .info-card h6 {
+        color: #0369a1;
+        margin-bottom: 0.75rem;
+      }
+
+      .tab-content {
+        background: white;
+        border-radius: 0 12px 12px 12px;
+        padding: 2rem;
+        box-shadow: var(--card-shadow);
+      }
+
+      .nav-tabs .nav-link {
+        border: none;
+        color: #64748b;
+        font-weight: 600;
+        padding: 12px 24px;
+        border-radius: 8px 8px 0 0;
+      }
+
+      .nav-tabs .nav-link.active {
+        background: white;
+        color: var(--primary);
+        border-bottom: 3px solid var(--primary);
+      }
+
+      .footer {
+        background: #1e293b;
+        color: white;
+        margin-top: 4rem;
+        padding: 3rem 0 2rem;
+      }
+
+      .footer a {
+        color: #60a5fa;
+        text-decoration: none;
+      }
+
+      .footer a:hover {
+        color: #93c5fd;
+      }
+
+      .disclaimer {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        padding: 1rem;
+        font-size: 0.85rem;
+        margin-top: 1.5rem;
+      }
+
+      .animate-slide-up {
+        animation: slideUp 0.5s ease;
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .pulse {
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(26, 115, 232, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(26, 115, 232, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(26, 115, 232, 0);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .amount-display {
+          font-size: 2rem;
+        }
+        
+        .mode-btn {
+          padding: 10px 12px;
+          font-size: 0.9rem;
+        }
+        
+        .card {
+          margin-bottom: 1.5rem;
+        }
       }
     </style>
   </head>
   <body>
     <!-- Header -->
-    <div class="header text-center mb-4">
+    <header class="main-header">
       <div class="container">
-        <h1 class="display-5 fw-bold mb-3">
-          <i class="bi bi-calculator-fill me-2"></i>Afghanistan Tax System Calculator
-        </h1>
-        <p class="lead">Calculate your salary, tax, and net income according to Afghanistan tax law</p>
+        <div class="d-flex align-items-center mb-4">
+          <div class="logo-container">
+            <i class="bi bi-calculator-fill" style="font-size: 1.5rem;"></i>
+          </div>
+          <div>
+            <h1 class="h2 mb-1">Afghanistan Tax Calculator</h1>
+            <p class="mb-0 opacity-75">Accurate salary & tax calculations based on current tax law</p>
+          </div>
+        </div>
       </div>
-    </div>
+    </header>
 
-    <div class="container">
-      <div class="row">
-        <!-- Left Panel: Results Display -->
-        <div class="col-lg-4 mb-4">
-          <div class="card h-100">
-            <div class="card-header bg-primary text-white">
-              <h3 class="card-title mb-0"><i class="bi bi-graph-up me-2"></i>Salary Summary</h3>
+    <main class="container py-4">
+      <div class="row g-4">
+        <!-- Results Panel -->
+        <div class="col-lg-4">
+          <div class="card result-card h-100 animate-slide-up">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <span>Salary Summary</span>
+              <span class="currency-badge">AFN</span>
             </div>
             <div class="card-body">
-              <div class="result-box mb-4">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h5 class="text-muted mb-0">Gross Salary</h5>
-                  <span class="badge bg-info">Input</span>
-                </div>
-                <h2 id="grass" class="display-6 fw-bold text-primary">0 <span class="currency">AFN</span></h2>
-                <p class="text-muted mb-0">Total salary before tax deduction</p>
-              </div>
-              
-              <div class="result-box mb-4">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h5 class="text-muted mb-0">Tax Amount</h5>
-                  <span class="badge bg-danger">Deduction</span>
-                </div>
-                <h2 id="tax" class="display-6 fw-bold text-danger">0 <span class="currency">AFN</span></h2>
-                <p class="text-muted mb-0">Tax to be withheld according to law</p>
-              </div>
-              
-              <div class="result-box">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h5 class="text-muted mb-0">Net Salary</h5>
-                  <span class="badge bg-success">Take-home</span>
-                </div>
-                <h2 id="nate" class="display-6 fw-bold text-success">0 <span class="currency">AFN</span></h2>
-                <p class="text-muted mb-0">Salary after tax deduction</p>
-              </div>
-              
-              <div class="mt-4 pt-3 border-top">
-                <div class="d-flex justify-content-between">
-                  <span>Tax Rate:</span>
-                  <strong id="tax-rate">0%</strong>
-                </div>
-                <div class="d-flex justify-content-between mt-2">
-                  <span>Tax Bracket:</span>
-                  <strong id="tax-bracket">0 - 5,000 AFN</strong>
+              <!-- Gross Salary -->
+              <div class="mb-4 pb-3 border-bottom">
+                <div class="amount-label">Gross Salary</div>
+                <div class="amount-display text-primary" id="grass">0</div>
+                <div class="d-flex justify-content-between align-items-center mt-2">
+                  <small class="text-muted">Before tax deduction</small>
+                  <span class="badge bg-light text-primary">Input</span>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
 
-        <!-- Center Panel: Input Controls -->
-        <div class="col-lg-4 mb-4">
-          <div class="card h-100">
-            <div class="card-header bg-secondary text-white">
-              <h3 class="card-title mb-0"><i class="bi bi-sliders me-2"></i>Tax Calculator</h3>
-            </div>
-            <div class="card-body">
-              <!-- Calculation Mode Selector -->
+              <!-- Tax Amount -->
+              <div class="mb-4 pb-3 border-bottom">
+                <div class="amount-label">Tax Amount</div>
+                <div class="amount-display text-danger" id="tax">0</div>
+                <div class="d-flex justify-content-between align-items-center mt-2">
+                  <small class="text-muted">Withheld according to law</small>
+                  <div id="tax-badge" class="tax-badge zero">0% Rate</div>
+                </div>
+              </div>
+
+              <!-- Net Salary -->
               <div class="mb-4">
-                <h5 class="mb-3">Select Calculation Mode:</h5>
-                <div class="btn-group d-flex" role="group">
-                  <button type="button" id="grass_salary_btn" class="btn btn-info btn-mode active">
-                    <i class="bi bi-cash-stack me-1"></i> Gross Salary
-                  </button>
-                  <button type="button" id="tax_salary_btn" class="btn btn-success btn-mode">
-                    <i class="bi bi-percent me-1"></i> Tax Amount
-                  </button>
-                  <button type="button" id="nate_salary_btn" class="btn btn-warning btn-mode">
-                    <i class="bi bi-wallet2 me-1"></i> Net Salary
-                  </button>
+                <div class="amount-label">Net Salary</div>
+                <div class="amount-display text-success" id="nate">0</div>
+                <div class="d-flex justify-content-between align-items-center mt-2">
+                  <small class="text-muted">Take-home amount</small>
+                  <span class="badge bg-light text-success">Final</span>
                 </div>
               </div>
-              
-              <!-- Input Sections -->
-              <!-- Gross Salary Input -->
-              <div id="grass_input" class="input-section">
-                <h5 class="mb-3">Enter Gross Salary:</h5>
-                <div class="input-group mb-3">
-                  <span class="input-group-text bg-info text-white"><i class="bi bi-currency-exchange"></i></span>
-                  <input
-                    type="number"
-                    id="salary"
-                    class="form-control"
-                    placeholder="Enter gross salary in AFN"
-                    aria-label="Gross salary"
-                  />
-                  <span class="input-group-text">AFN</span>
+
+              <!-- Progress Bar -->
+              <div class="progress-container">
+                <div class="progress-label">
+                  <span>Take-home</span>
+                  <span id="take-home-percent">100%</span>
                 </div>
-                <button class="btn btn-info w-100" type="button" id="calculate">
-                  <i class="bi bi-calculator me-1"></i> Calculate Tax & Net Salary
-                </button>
-                <div class="mt-2">
-                  <small class="text-muted">Enter your total salary before tax deduction</small>
+                <div class="progress-bar">
+                  <div class="progress-fill" id="net-progress" style="width: 100%"></div>
                 </div>
               </div>
-              
-              <!-- Tax Amount Input -->
-              <div id="tax_input" class="input-section d-none">
-                <h5 class="mb-3">Enter Tax Amount:</h5>
-                <div class="input-group mb-3">
-                  <span class="input-group-text bg-success text-white"><i class="bi bi-percent"></i></span>
-                  <input
-                    type="number"
-                    id="tax_check"
-                    class="form-control"
-                    placeholder="Enter tax amount in AFN"
-                    aria-label="Tax amount"
-                  />
-                  <span class="input-group-text">AFN</span>
-                </div>
-                <button class="btn btn-success w-100" type="button" id="calculate_tax">
-                  <i class="bi bi-calculator me-1"></i> Calculate Gross & Net Salary
-                </button>
-                <div class="mt-2">
-                  <small class="text-muted">Enter tax amount to calculate corresponding salary</small>
-                </div>
-              </div>
-              
-              <!-- Net Salary Input -->
-              <div id="nate_input" class="input-section d-none">
-                <h5 class="mb-3">Enter Net Salary:</h5>
-                <div class="input-group mb-3">
-                  <span class="input-group-text bg-warning text-white"><i class="bi bi-wallet2"></i></span>
-                  <input
-                    type="number"
-                    id="nate_check"
-                    class="form-control"
-                    placeholder="Enter net salary in AFN"
-                    aria-label="Net salary"
-                  />
-                  <span class="input-group-text">AFN</span>
-                </div>
-                <button class="btn btn-warning w-100" type="button" id="calculate_nate">
-                  <i class="bi bi-calculator me-1"></i> Calculate Gross Salary & Tax
-                </button>
-                <div class="mt-2">
-                  <small class="text-muted">Enter your take-home salary after tax</small>
-                </div>
-              </div>
-              
-              <!-- Result Display -->
-              <div id="result" class="mt-4"></div>
-              
-              <!-- Tax Calculation Breakdown -->
-              <div class="tax-breakdown mt-4 d-none" id="calculation-breakdown">
-                <h6 class="mb-3"><i class="bi bi-list-check me-1"></i>Tax Calculation Breakdown:</h6>
-                <div id="breakdown-steps"></div>
+
+              <!-- Tax Bracket Info -->
+              <div class="info-card">
+                <h6><i class="bi bi-info-circle me-2"></i>Current Tax Bracket</h6>
+                <p class="mb-2"><strong id="tax-bracket">0 - 5,000 AFN</strong></p>
+                <p class="mb-0 small">Effective tax rate: <span id="tax-rate" class="fw-bold">0%</span></p>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Right Panel: Tax Rates Table -->
-        <div class="col-lg-4 mb-4">
-          <div class="card h-100">
-            <div class="card-header bg-dark text-white">
-              <h3 class="card-title mb-0"><i class="bi bi-table me-2"></i>Tax Brackets (Monthly)</h3>
+        <!-- Input Panel -->
+        <div class="col-lg-4">
+          <div class="card h-100 animate-slide-up" style="animation-delay: 0.1s;">
+            <div class="card-header">
+              <i class="bi bi-sliders2 me-2"></i>Tax Calculator
+            </div>
+            <div class="card-body">
+              <!-- Mode Selector -->
+              <div class="mb-4">
+                <h6 class="mb-3">Calculate From:</h6>
+                <div class="mode-selector">
+                  <button class="mode-btn active" id="grass_salary_btn" data-mode="gross">
+                    <i class="bi bi-cash-stack"></i> Gross
+                  </button>
+                  <button class="mode-btn" id="tax_salary_btn" data-mode="tax">
+                    <i class="bi bi-percent"></i> Tax
+                  </button>
+                  <button class="mode-btn" id="nate_salary_btn" data-mode="net">
+                    <i class="bi bi-wallet2"></i> Net
+                  </button>
+                </div>
+              </div>
+
+              <!-- Input Section -->
+              <div id="input-section">
+                <!-- Gross Input -->
+                <div class="input-container" id="grass_input">
+                  <label for="salary">
+                    <i class="bi bi-cash-coin me-1"></i> Enter Gross Salary
+                  </label>
+                  <div class="currency-input">
+                    <input
+                      type="number"
+                      id="salary"
+                      class="form-control-plaintext"
+                      placeholder="0"
+                      min="0"
+                      step="100"
+                    />
+                    <span class="currency-symbol">AFN</span>
+                  </div>
+                  <small class="text-muted">Total salary before tax deduction</small>
+                </div>
+
+                <!-- Tax Input -->
+                <div class="input-container d-none" id="tax_input">
+                  <label for="tax_check">
+                    <i class="bi bi-percent me-1"></i> Enter Tax Amount
+                  </label>
+                  <div class="currency-input">
+                    <input
+                      type="number"
+                      id="tax_check"
+                      class="form-control-plaintext"
+                      placeholder="0"
+                      min="0"
+                      step="100"
+                    />
+                    <span class="currency-symbol">AFN</span>
+                  </div>
+                  <small class="text-muted">Tax amount to calculate corresponding salary</small>
+                </div>
+
+                <!-- Net Input -->
+                <div class="input-container d-none" id="nate_input">
+                  <label for="nate_check">
+                    <i class="bi bi-wallet2 me-1"></i> Enter Net Salary
+                  </label>
+                  <div class="currency-input">
+                    <input
+                      type="number"
+                      id="nate_check"
+                      class="form-control-plaintext"
+                      placeholder="0"
+                      min="0"
+                      step="100"
+                    />
+                    <span class="currency-symbol">AFN</span>
+                  </div>
+                  <small class="text-muted">Take-home salary after tax deduction</small>
+                </div>
+
+                <button class="calculate-btn pulse" id="calculate-btn">
+                  <i class="bi bi-calculator"></i>
+                  <span id="calculate-text">Calculate Tax & Net Salary</span>
+                </button>
+              </div>
+
+              <!-- Quick Examples -->
+              <div class="mt-4">
+                <h6 class="mb-3">Quick Examples:</h6>
+                <div class="d-flex flex-wrap gap-2">
+                  <button class="example-btn" onclick="setExample(20000)">20,000 AFN</button>
+                  <button class="example-btn" onclick="setExample(50000)">50,000 AFN</button>
+                  <button class="example-btn" onclick="setExample(100000)">100,000 AFN</button>
+                  <button class="example-btn" onclick="setExample(150000)">150,000 AFN</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tax Table Panel -->
+        <div class="col-lg-4">
+          <div class="card h-100 animate-slide-up" style="animation-delay: 0.2s;">
+            <div class="card-header">
+              <i class="bi bi-table me-2"></i>Tax Brackets (Monthly)
             </div>
             <div class="card-body p-0">
               <div class="table-responsive">
-                <table class="table table-hover mb-0 tax-table">
-                  <thead class="table-light">
+                <table class="tax-table">
+                  <thead>
                     <tr>
-                      <th scope="col">Monthly Salary (AFN)</th>
-                      <th scope="col">Withholding Tax</th>
+                      <th>Monthly Salary (AFN)</th>
+                      <th>Withholding Tax</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
+                  <tbody id="tax-table-body">
+                    <tr data-min="0" data-max="5000">
                       <td>0 to 5,000</td>
                       <td>0%</td>
                     </tr>
-                    <tr>
+                    <tr data-min="5001" data-max="12500">
                       <td>5,001 to 12,500</td>
                       <td>2% of amount over 5,000 AFN</td>
                     </tr>
-                    <tr>
+                    <tr data-min="12501" data-max="100000">
                       <td>12,501 to 100,000</td>
                       <td>150 AFN + 10% over 12,500 AFN</td>
                     </tr>
-                    <tr>
+                    <tr data-min="100001" data-max="Infinity">
                       <td>Over 100,000</td>
                       <td>8,900 AFN + 20% over 100,000 AFN</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-              
-              <div class="p-3">
-                <div class="alert alert-info">
-                  <h6><i class="bi bi-info-circle me-1"></i>How to Use:</h6>
-                  <p class="mb-0 small">Select a calculation mode, enter your value, and click calculate. You can calculate from gross salary, tax amount, or net salary.</p>
+
+              <!-- How to Use -->
+              <div class="p-3 border-top">
+                <div class="info-card">
+                  <h6><i class="bi bi-question-circle me-2"></i>How to Use</h6>
+                  <p class="small mb-0">Select calculation mode, enter amount, and click calculate. You can calculate from gross salary, tax amount, or net salary.</p>
                 </div>
-                
-                <h6 class="mt-3">Quick Examples:</h6>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item d-flex justify-content-between align-items-center py-2">
-                    <span>Salary: 20,000 AFN</span>
-                    <button class="btn btn-sm btn-outline-info" onclick="setExample(20000)">Try</button>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center py-2">
-                    <span>Salary: 50,000 AFN</span>
-                    <button class="btn btn-sm btn-outline-info" onclick="setExample(50000)">Try</button>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center py-2">
-                    <span>Salary: 150,000 AFN</span>
-                    <button class="btn btn-sm btn-outline-info" onclick="setExample(150000)">Try</button>
-                  </li>
-                </ul>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
-      <!-- Tax Law Information -->
+
+      <!-- Tax Law Guide -->
       <div class="row mt-4">
         <div class="col-12">
-          <div class="card">
-            <div class="card-header bg-secondary text-white">
-              <h3 class="card-title mb-0"><i class="bi bi-journal-text me-2"></i>Income Tax Law Guide</h3>
+          <div class="card animate-slide-up" style="animation-delay: 0.3s;">
+            <div class="card-header">
+              <i class="bi bi-journal-text me-2"></i>Income Tax Law Guide
             </div>
-            <div class="card-body">
-              <div class="row">
+            <div class="card-body p-0">
+              <div class="row g-0">
                 <div class="col-md-3">
-                  <div class="list-group" id="list-tab" role="tablist">
-                    <a class="list-group-item list-group-item-action active" id="list-intro-list" data-bs-toggle="list" href="#list-intro">Introduction</a>
-                    <a class="list-group-item list-group-item-action" id="list-rates-list" data-bs-toggle="list" href="#list-rates">Withholding Rates</a>
-                    <a class="list-group-item list-group-item-action" id="list-example-list" data-bs-toggle="list" href="#list-example">Calculation Example</a>
-                    <a class="list-group-item list-group-item-action" id="list-responsibility-list" data-bs-toggle="list" href="#list-responsibility">Responsibilities</a>
+                  <div class="nav flex-column nav-tabs border-0" id="law-tab" role="tablist">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#intro">
+                      <i class="bi bi-house-door me-2"></i>Introduction
+                    </button>
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#rates">
+                      <i class="bi bi-graph-up me-2"></i>Withholding Rates
+                    </button>
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#example">
+                      <i class="bi bi-calculator me-2"></i>Calculation Example
+                    </button>
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#responsibility">
+                      <i class="bi bi-person-check me-2"></i>Responsibilities
+                    </button>
                   </div>
                 </div>
                 <div class="col-md-9">
-                  <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="list-intro">
-                      <h5>Introduction</h5>
+                  <div class="tab-content p-4" id="law-tabContent">
+                    <div class="tab-pane fade show active" id="intro">
+                      <h5>Introduction to Income Tax Law</h5>
                       <p>The Income Tax Law 2009 has modified some applications of the wage withholding tax. This guide outlines those changes and provides assistance in complying with the law.</p>
                       <p>Legal and natural persons with two or more employees during any month of the tax year must withhold tax from employees whose income exceeds the threshold discussed in Article 58 of the Income Tax Law.</p>
                     </div>
-                    <div class="tab-pane fade" id="list-rates">
-                      <h5>Withholding Rates</h5>
+                    <div class="tab-pane fade" id="rates">
+                      <h5>Withholding Rates Structure</h5>
                       <p>Effective 1 Hamal 1388, the new tax law provides a monthly schedule of withholding rates based on income brackets:</p>
-                      <ul>
-                        <li><strong>Income up to AFN 5,000:</strong> 0%</li>
-                        <li><strong>Income between AFN 5,000 - 12,500:</strong> 2% of amount over 5,000 AFN</li>
-                        <li><strong>Income between AFN 12,500 - 100,000:</strong> 150 AFN + 10% over 12,500 AFN</li>
-                        <li><strong>Income over AFN 100,000:</strong> 8,900 AFN + 20% over 100,000 AFN</li>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item px-0 border-0"><strong>Income up to AFN 5,000:</strong> 0%</li>
+                        <li class="list-group-item px-0 border-0"><strong>Income between AFN 5,000 - 12,500:</strong> 2% of amount over 5,000 AFN</li>
+                        <li class="list-group-item px-0 border-0"><strong>Income between AFN 12,500 - 100,000:</strong> 150 AFN + 10% over 12,500 AFN</li>
+                        <li class="list-group-item px-0 border-0"><strong>Income over AFN 100,000:</strong> 8,900 AFN + 20% over 100,000 AFN</li>
                       </ul>
                     </div>
-                    <div class="tab-pane fade" id="list-example">
+                    <div class="tab-pane fade" id="example">
                       <h5>Calculation Example</h5>
                       <p><strong>Example:</strong> Abdullah earns AFN 20,000 per month. His monthly withholding tax would be AFN 900 calculated as follows:</p>
-                      <div class="highlight">
+                      <div class="bg-light p-3 rounded">
                         <p class="mb-1">20,000 – 12,500 = 7,500</p>
                         <p class="mb-1">7,500 × 10% (0.1) = 750</p>
-                        <p class="mb-0">750 + 150 = 900 AFN tax</p>
+                        <p class="mb-0">750 + 150 = <strong>900 AFN tax</strong></p>
                       </div>
-                      <p class="mt-2">Net salary: 20,000 - 900 = 19,100 AFN</p>
+                      <p class="mt-3">Net salary: 20,000 - 900 = <strong>19,100 AFN</strong></p>
                     </div>
-                    <div class="tab-pane fade" id="list-responsibility">
-                      <h5>Responsibilities</h5>
+                    <div class="tab-pane fade" id="responsibility">
+                      <h5>Employer Responsibilities</h5>
                       <p>Employers must remit the withheld tax to the State no later than 10 days after the end of the month. Annual salary and tax statements must be provided to employees and forwarded to the Ministry of Finance.</p>
                       <p>Employees with a single job have no further filing requirements. Those with additional income must file an individual income tax return and can credit the withheld tax against their total tax liability.</p>
                     </div>
@@ -376,21 +721,26 @@
           </div>
         </div>
       </div>
-    </div>
+    </main>
 
     <!-- Footer -->
-    <footer class="mt-5">
+    <footer class="footer">
       <div class="container">
         <div class="row">
-          <div class="col-md-6">
-            <h5>Afghanistan Tax System Calculator</h5>
-            <p>This calculator helps you determine your tax liability according to the Afghanistan Income Tax Law 2009.</p>
-            <p>For official information, visit the <a href="http://www.ard.gov.af" class="text-info">Afghanistan Revenue Department</a>.</p>
+          <div class="col-lg-8">
+            <h5 class="mb-3">Afghanistan Tax System Calculator</h5>
+            <p class="mb-3">This calculator helps you determine your tax liability according to the Afghanistan Income Tax Law 2009.</p>
+            <p class="mb-0">
+              For official information, visit the
+              <a href="http://www.ard.gov.af" target="_blank">Afghanistan Revenue Department</a>.
+            </p>
           </div>
-          <div class="col-md-6 text-md-end">
-            <h5>Disclaimer</h5>
-            <p class="small">This tool is for informational purposes only. While we strive for accuracy, we cannot guarantee the calculations. Always consult with a tax professional for official tax matters.</p>
-            <p class="small mt-3">© 2023 Afghanistan Tax Calculator. All rights reserved.</p>
+          <div class="col-lg-4">
+            <div class="disclaimer">
+              <h6><i class="bi bi-exclamation-triangle me-2"></i>Disclaimer</h6>
+              <p class="small mb-0">This tool is for informational purposes only. While we strive for accuracy, we cannot guarantee the calculations. Always consult with a tax professional for official tax matters.</p>
+            </div>
+            <p class="small mt-3 mb-0">© 2023 Afghanistan Tax Calculator. All rights reserved.</p>
           </div>
         </div>
       </div>
@@ -399,227 +749,198 @@
     <script>
       // Format currency with commas
       function formatCurrency(amount) {
-        return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        return new Intl.NumberFormat('en-US').format(amount.toFixed(0));
       }
-      
+
       // Calculate tax based on salary
       function calculateTax(salary) {
         let tax = 0;
         let bracket = "";
-        let breakdown = [];
-        
+        let taxRate = 0;
+
         if (salary <= 5000) {
           tax = 0;
           bracket = "0 - 5,000 AFN";
-          breakdown.push(`Salary (${formatCurrency(salary)} AFN) is within the 0% tax bracket`);
-          breakdown.push(`Tax = 0% × ${formatCurrency(salary)} = 0 AFN`);
         } else if (salary <= 12500) {
           tax = 0.02 * (salary - 5000);
           bracket = "5,001 - 12,500 AFN";
-          breakdown.push(`Salary exceeds 5,000 AFN by ${formatCurrency(salary - 5000)} AFN`);
-          breakdown.push(`Tax = 2% × ${formatCurrency(salary - 5000)} = ${formatCurrency(tax)} AFN`);
         } else if (salary <= 100000) {
           tax = 150 + 0.1 * (salary - 12500);
           bracket = "12,501 - 100,000 AFN";
-          breakdown.push(`Salary exceeds 12,500 AFN by ${formatCurrency(salary - 12500)} AFN`);
-          breakdown.push(`Tax = 150 AFN + (10% × ${formatCurrency(salary - 12500)})`);
-          breakdown.push(`Tax = 150 AFN + ${formatCurrency(0.1 * (salary - 12500))} AFN = ${formatCurrency(tax)} AFN`);
         } else {
           tax = 8900 + 0.2 * (salary - 100000);
           bracket = "Over 100,000 AFN";
-          breakdown.push(`Salary exceeds 100,000 AFN by ${formatCurrency(salary - 100000)} AFN`);
-          breakdown.push(`Tax = 8,900 AFN + (20% × ${formatCurrency(salary - 100000)})`);
-          breakdown.push(`Tax = 8,900 AFN + ${formatCurrency(0.2 * (salary - 100000))} AFN = ${formatCurrency(tax)} AFN`);
         }
-        
+
         // Calculate tax rate
-        const taxRate = salary > 0 ? ((tax / salary) * 100).toFixed(2) : 0;
-        
+        taxRate = salary > 0 ? ((tax / salary) * 100).toFixed(1) : 0;
+
         return {
           tax: Math.max(0, tax),
           netSalary: salary - tax,
           bracket: bracket,
-          taxRate: taxRate,
-          breakdown: breakdown
+          taxRate: taxRate
         };
       }
-      
-      // Calculate salary from tax (reverse calculation)
-      function calculateSalaryFromTax(taxAmount) {
-        let salary = 0;
+
+      // Update tax badge based on tax rate
+      function updateTaxBadge(taxRate) {
+        const badge = $('#tax-badge');
+        badge.removeClass('zero low medium high');
         
-        // Determine which bracket this tax amount falls into
-        if (taxAmount === 0) {
-          // Could be in 0% bracket
-          salary = 5000; // Maximum salary with 0 tax
-        } else if (taxAmount <= 150) {
-          // In 2% bracket: tax = 0.02 * (salary - 5000)
-          salary = (taxAmount / 0.02) + 5000;
-        } else if (taxAmount <= 8900) {
-          // In 10% bracket: tax = 150 + 0.1 * (salary - 12500)
-          salary = ((taxAmount - 150) / 0.1) + 12500;
+        if (taxRate === 0) {
+          badge.addClass('zero').html('<i class="bi bi-check-circle"></i> 0% Tax');
+        } else if (taxRate < 5) {
+          badge.addClass('low').html(`<i class="bi bi-arrow-down-right"></i> ${taxRate}% Rate`);
+        } else if (taxRate < 15) {
+          badge.addClass('medium').html(`<i class="bi bi-graph-up"></i> ${taxRate}% Rate`);
         } else {
-          // In 20% bracket: tax = 8900 + 0.2 * (salary - 100000)
-          salary = ((taxAmount - 8900) / 0.2) + 100000;
+          badge.addClass('high').html(`<i class="bi bi-graph-up-arrow"></i> ${taxRate}% Rate`);
         }
-        
-        return salary;
       }
-      
-      // Calculate salary from net salary (reverse calculation)
-      function calculateSalaryFromNet(netSalary) {
-        // We need to find salary where salary - tax(salary) = netSalary
-        // This requires solving for salary based on the tax brackets
+
+      // Update progress bar
+      function updateProgressBar(salary, tax) {
+        const netPercent = salary > 0 ? ((salary - tax) / salary * 100).toFixed(1) : 100;
+        $('#take-home-percent').text(netPercent + '%');
+        $('#net-progress').css('width', netPercent + '%');
+      }
+
+      // Highlight active tax bracket
+      function highlightTaxBracket(salary) {
+        $('#tax-table-body tr').removeClass('active');
         
-        // Start with a guess and refine
-        let guess = netSalary;
-        let iterations = 0;
-        let maxIterations = 100;
-        let tolerance = 0.01;
-        
-        while (iterations < maxIterations) {
-          const calc = calculateTax(guess);
-          const calculatedNet = guess - calc.tax;
-          const difference = calculatedNet - netSalary;
+        $('#tax-table-body tr').each(function() {
+          const min = parseFloat($(this).data('min'));
+          const max = parseFloat($(this).data('max'));
           
-          if (Math.abs(difference) < tolerance) {
-            break;
+          if (salary >= min && salary <= max) {
+            $(this).addClass('active');
           }
-          
-          // Adjust guess based on difference
-          guess = guess - difference * 0.5;
-          iterations++;
-        }
-        
-        return guess;
-      }
-      
-      // Update display with results
-      function updateDisplay(salary, tax, netSalary, taxRate, bracket) {
-        const currency = " <span class='currency'>AFN</span>";
-        $("#grass").html(formatCurrency(salary) + currency);
-        $("#tax").html(formatCurrency(tax) + currency);
-        $("#nate").html(formatCurrency(netSalary) + currency);
-        $("#tax-rate").html(taxRate + "%");
-        $("#tax-bracket").html(bracket);
-        
-        // Show success message
-        $("#result").html(`
-          <div class="alert alert-success">
-            <h5><i class="bi bi-check-circle me-2"></i>Calculation Complete</h5>
-            <p class="mb-0">A gross salary of <strong>${formatCurrency(salary)} AFN</strong> results in a tax of <strong>${formatCurrency(tax)} AFN</strong> and a net salary of <strong>${formatCurrency(netSalary)} AFN</strong>.</p>
-          </div>
-        `);
-      }
-      
-      // Show calculation breakdown
-      function showBreakdown(steps) {
-        $("#calculation-breakdown").removeClass("d-none");
-        let html = '';
-        steps.forEach((step, index) => {
-          html += `<div class="calculation-step">${step}</div>`;
         });
-        $("#breakdown-steps").html(html);
       }
-      
+
+      // Update display
+      function updateDisplay(salary, tax, netSalary, taxRate, bracket) {
+        // Update numbers
+        $('#grass').text(formatCurrency(salary));
+        $('#tax').text(formatCurrency(tax));
+        $('#nate').text(formatCurrency(netSalary));
+        $('#tax-rate').text(taxRate + '%');
+        $('#tax-bracket').text(bracket);
+        
+        // Update UI elements
+        updateTaxBadge(taxRate);
+        updateProgressBar(salary, tax);
+        highlightTaxBracket(salary);
+        
+        // Animate updates
+        $('.amount-display').addClass('animate__animated animate__pulse');
+        setTimeout(() => {
+          $('.amount-display').removeClass('animate__animated animate__pulse');
+        }, 500);
+      }
+
       // Set example value
       function setExample(value) {
-        $("#salary").val(value);
-        $("#calculate").click();
-        $("#grass_salary_btn").click();
+        $('#salary').val(value);
+        $('#grass_salary_btn').click();
+        $('#calculate-btn').click();
       }
-      
+
       // Document ready
       $(document).ready(function () {
+        // Initialize Bootstrap tabs
+        const tabTriggerList = [].slice.call(document.querySelectorAll('#law-tab button'))
+        tabTriggerList.forEach(function (tabTriggerEl) {
+          new bootstrap.Tab(tabTriggerEl)
+        });
+
         // Mode switching
-        $("#grass_salary_btn").click(function () {
-          $(".btn-mode").removeClass("active");
-          $(this).addClass("active");
-          $(".input-section").addClass("d-none");
-          $("#grass_input").removeClass("d-none");
-          $("#calculation-breakdown").addClass("d-none");
-        });
-        
-        $("#tax_salary_btn").click(function () {
-          $(".btn-mode").removeClass("active");
-          $(this).addClass("active");
-          $(".input-section").addClass("d-none");
-          $("#tax_input").removeClass("d-none");
-          $("#calculation-breakdown").addClass("d-none");
-        });
-        
-        $("#nate_salary_btn").click(function () {
-          $(".btn-mode").removeClass("active");
-          $(this).addClass("active");
-          $(".input-section").addClass("d-none");
-          $("#nate_input").removeClass("d-none");
-          $("#calculation-breakdown").addClass("d-none");
-        });
-        
-        // Calculate from gross salary
-        $("#calculate").click(function () {
-          const salary = parseFloat($("#salary").val());
+        $('.mode-btn').click(function () {
+          // Update active state
+          $('.mode-btn').removeClass('active');
+          $(this).addClass('active');
           
-          if (isNaN(salary) || salary < 0) {
-            $("#result").html(`
-              <div class="alert alert-danger">
-                <h5><i class="bi bi-exclamation-triangle me-2"></i>Invalid Input</h5>
-                <p class="mb-0">Please enter a valid positive number for salary.</p>
-              </div>
-            `);
+          // Show appropriate input
+          const mode = $(this).data('mode');
+          $('.input-container').addClass('d-none');
+          
+          if (mode === 'gross') {
+            $('#grass_input').removeClass('d-none');
+            $('#calculate-text').text('Calculate Tax & Net Salary');
+          } else if (mode === 'tax') {
+            $('#tax_input').removeClass('d-none');
+            $('#calculate-text').text('Calculate Gross & Net Salary');
+          } else if (mode === 'net') {
+            $('#nate_input').removeClass('d-none');
+            $('#calculate-text').text('Calculate Gross Salary & Tax');
+          }
+          
+          // Clear result
+          $('#grass').text('0');
+          $('#tax').text('0');
+          $('#nate').text('0');
+        });
+
+        // Calculate button
+        $('#calculate-btn').click(function () {
+          let salary = 0;
+          
+          // Get value based on active mode
+          if ($('#grass_salary_btn').hasClass('active')) {
+            salary = parseFloat($('#salary').val()) || 0;
+          } else if ($('#tax_salary_btn').hasClass('active')) {
+            const tax = parseFloat($('#tax_check').val()) || 0;
+            // Reverse calculate salary from tax
+            if (tax === 0) {
+              salary = 5000;
+            } else if (tax <= 150) {
+              salary = tax / 0.02 + 5000;
+            } else if (tax <= 8900) {
+              salary = (tax - 150) / 0.1 + 12500;
+            } else {
+              salary = (tax - 8900) / 0.2 + 100000;
+            }
+            $('#salary').val(salary.toFixed(0));
+          } else if ($('#nate_salary_btn').hasClass('active')) {
+            const net = parseFloat($('#nate_check').val()) || 0;
+            // Estimate salary from net (iterative approach)
+            let guess = net * 1.2; // Start with 20% higher guess
+            for (let i = 0; i < 10; i++) {
+              const calc = calculateTax(guess);
+              const netGuess = guess - calc.tax;
+              const error = netGuess - net;
+              guess = guess - error * 0.8;
+            }
+            salary = Math.max(net, guess);
+            $('#salary').val(salary.toFixed(0));
+          }
+          
+          // Validate
+          if (salary < 0) {
+            alert('Please enter a valid positive amount.');
             return;
           }
           
+          // Calculate and update
           const result = calculateTax(salary);
           updateDisplay(salary, result.tax, result.netSalary, result.taxRate, result.bracket);
-          showBreakdown(result.breakdown);
         });
-        
-        // Calculate from tax amount
-        $("#calculate_tax").click(function () {
-          const taxAmount = parseFloat($("#tax_check").val());
-          
-          if (isNaN(taxAmount) || taxAmount < 0) {
-            $("#result").html(`
-              <div class="alert alert-danger">
-                <h5><i class="bi bi-exclamation-triangle me-2"></i>Invalid Input</h5>
-                <p class="mb-0">Please enter a valid positive number for tax amount.</p>
-              </div>
-            `);
-            return;
-          }
-          
-          const salary = calculateSalaryFromTax(taxAmount);
-          const result = calculateTax(salary);
-          updateDisplay(salary, result.tax, result.netSalary, result.taxRate, result.bracket);
-          showBreakdown(result.breakdown);
+
+        // Input validation and formatting
+        $('input[type="number"]').on('input', function() {
+          let value = $(this).val();
+          // Remove any non-numeric characters except decimal point
+          value = value.replace(/[^\d.]/g, '');
+          $(this).val(value);
         });
-        
-        // Calculate from net salary
-        $("#calculate_nate").click(function () {
-          const netSalary = parseFloat($("#nate_check").val());
-          
-          if (isNaN(netSalary) || netSalary < 0) {
-            $("#result").html(`
-              <div class="alert alert-danger">
-                <h5><i class="bi bi-exclamation-triangle me-2"></i>Invalid Input</h5>
-                <p class="mb-0">Please enter a valid positive number for net salary.</p>
-              </div>
-            `);
-            return;
-          }
-          
-          const salary = calculateSalaryFromNet(netSalary);
-          const result = calculateTax(salary);
-          updateDisplay(salary, result.tax, result.netSalary, result.taxRate, result.bracket);
-          showBreakdown(result.breakdown);
-        });
-        
+
         // Initialize with an example
         setExample(20000);
       });
     </script>
-    
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
